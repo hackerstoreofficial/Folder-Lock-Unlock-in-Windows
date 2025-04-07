@@ -11,7 +11,7 @@ if NOT EXIST "Locker" (
     goto CREATE
 )
 
-:: Check if folder is hidden (locked)
+:: Check if the folder is hidden (locked)
 attrib Locker | find "H" > nul
 if %ERRORLEVEL%==0 (
     goto UNLOCK
@@ -19,28 +19,28 @@ if %ERRORLEVEL%==0 (
     goto LOCK
 )
 
-:CREATE
+: CREATE
 md Locker
 echo Locker folder created.
 goto End
 
-:LOCK
+: LOCK
 attrib +h +s Locker
 echo Folder Locked.
 goto End
 
-:UNLOCK
+: UNLOCK
 echo Enter Password to Unlock Folder:
 set /p "pass=>"
-if NOT %pass%==lauralahsun goto FAIL
+if NOT %pass%==YOUR_PASSWORD_HERE goto FAIL
 attrib -h -s Locker
 echo Folder Unlocked.
 goto End
 
-:FAIL
+: FAIL
 echo Wrong password!
 goto End
-
+ 
 :End
 pause
 
