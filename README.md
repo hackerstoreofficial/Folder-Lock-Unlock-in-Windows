@@ -1,34 +1,82 @@
-# Folder-Lock-Unlock-in-Windows
-Locking a folder on Windows 10 to protect it from unauthorized access
+# Folder Lock & Unlock in Windows
 
-**Use a Batch Script to "Fake-Lock" a Folder**
-This method uses a hidden folder trick and a batch file. It’s more like hiding and password-protecting through scripting
+A simple batch script to create, lock (hide), and unlock a folder on Windows 10/11 to protect it from unauthorized access.
 
-**Steps:**
-📋 Step 1 – Open Notepad
-1.1 Press Windows + S and type Notepad.
-1.2 Click Notepad to open it.
+> **⚠️ Disclaimer:** This method uses a "fake lock" mechanism (hiding the folder and renaming it to a system class ID). It is **not true encryption** and can be bypassed by users with knowledge of batch scripts or by enabling "Show hidden files". Do not use this for highly sensitive data.
 
-💻 Step 2 – Copy the Toggle Lock Script (which is in the Locker.bat file)
-2.1 Paste the code into Notepad (which is in the Locker.bat file)
-2.2 Replace YOUR_PASSWORD_HERE with your actual password.
+## Features
+* **Auto-Create Locker:** Automatically creates a folder named `Locker` if it doesn't exist.
+* **Lock Folder:** Hides the folder and locks it with a password.
+* **Unlock Folder:** Restores access to the folder using your password.
 
-💾 Step 3 – Save as a Batch File
-3.1 Go to File > Save As.
-3.2 In the File name, type: Locker.bat
-3.3 In Save as type, select All Files.
-3.4 Save it somewhere safe (like your Documents folder).
+## Usage
 
-📂 Step 4 – Create and Lock the Folder
-4.1 Double-click Locker.bat.
-4.2 The first run will create a folder named Locker.
-4.3 Put any files you want to protect inside the Locker folder.
-4.4 Double-click Locker.bat again — it will lock (hide) the folder.
+### Option 1: Use the Existing File
+1.  Download or clone this repository.
+2.  Right-click `Locker.bat` and select **Edit** (or Open with Notepad).
+3.  Find the line `if NOT %pass%==YOUR_PASSWORD_HERE goto FAIL`.
+4.  Replace `YOUR_PASSWORD_HERE` with your desired password.
+5.  Save the file.
 
-🔓 Step 5 – Unlock the Folder
-5.1 Double-click Locker.bat.
-5.2 It will ask for your password.
-5.3 If correct, it will show the folder again.
+### Option 2: Create the Script Manually
+1.  Open **Notepad**.
+2.  Copy the code block below and paste it into Notepad.
+3.  Change `YOUR_PASSWORD_HERE` to your desired password.
+4.  Go to **File > Save As**.
+5.  Name the file `Locker.bat` and select **All Files** in the "Save as type" dropdown.
 
-⚠️ This is not secure against tech-savvy users or those with access to the batch file.
-⚠️ This is a basic lock. Anyone who knows how batch files work can open it and see the password.
+### The Script Code
+
+```bat
+cls
+@ECHO OFF
+title Folder Locker
+if EXIST "Control Panel.{21EC2020-3AEA-1069-A2DD-08002B30309D}" goto UNLOCK
+if NOT EXIST Locker goto MDLOCKER
+
+:CONFIRM
+echo Are you sure you want to Lock the folder(Y/N)
+set/p "cho=>"
+if %cho%==Y goto LOCK
+if %cho%==y goto LOCK
+if %cho%==n goto END
+if %cho%==N goto END
+echo Invalid choice.
+goto CONFIRM
+
+:LOCK
+ren Locker "Control Panel.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
+attrib +h +s "Control Panel.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
+echo Folder locked
+goto End
+
+:UNLOCK
+echo Enter password to Unlock folder
+set/p "pass=>"
+if NOT %pass%==YOUR_PASSWORD_HERE goto FAIL
+attrib -h -s "Control Panel.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
+ren "Control Panel.{21EC2020-3AEA-1069-A2DD-08002B30309D}" Locker
+echo Folder Unlocked successfully
+goto End
+
+:FAIL
+echo Invalid password
+goto end
+
+:MDLOCKER
+md Locker
+echo Locker created successfully
+goto End
+
+:End
+```
+
+## How to Use
+
+1. Double-click `Locker.bat` . It will create a folder named `Locker`.
+
+2. Move your files into the `Locker` folder.
+
+3. Double-click `Locker.bat` again. Type `Y` to lock the folder. The folder will disappear.
+
+4. To unlock, double-click `Locker.bat` and enter your password.
