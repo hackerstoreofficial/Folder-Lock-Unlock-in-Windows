@@ -1,31 +1,45 @@
-# Folder Lock & Unlock in Windows
+# 🔐 Folder Lock & Unlock in Windows
 
-A simple batch script to create, lock (hide), and unlock a folder on Windows 10/11 to protect it from unauthorized access.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Platform](https://img.shields.io/badge/Platform-Windows-blue)](https://www.microsoft.com/windows)
+[![Script](https://img.shields.io/badge/Language-Batch-green)]()
 
-> **⚠️ Disclaimer:** This method uses a "fake lock" mechanism (hiding the folder and renaming it to a system class ID). It is **not true encryption** and can be bypassed by users with knowledge of batch scripts or by enabling "Show hidden files". Do not use this for highly sensitive data.
+A lightweight, portable Batch script to lock (hide) and unlock folders on Windows without installing any third-party software.
 
-## Features
-* **Auto-Create Locker:** Automatically creates a folder named `Locker` if it doesn't exist.
-* **Lock Folder:** Hides the folder and locks it with a password.
-* **Unlock Folder:** Restores access to the folder using your password.
+> **⚠️ Important Disclaimer:** This tool uses a system trick (renaming to a CLSID) to hide the folder. It provides **basic privacy** against casual snooping but **does not encrypt** your files. A tech-savvy user can still access the files if they know where to look. Do not use this for highly sensitive data like banking details.
 
-## Usage
+## ✨ Key Features
+* **No Installation Required:** Works directly on any Windows PC.
+* **Password Protection:** Simple text-based password system.
+* **Stealth Mode:** Completely hides the folder from standard Windows Explorer views.
+* **Fast & Lightweight:** Zero background processes or memory usage.
 
-### Option 1: Use the Existing File
-1.  Download or clone this repository.
-2.  Right-click `Locker.bat` and select **Edit** (or Open with Notepad).
-3.  Find the line `if NOT %pass%==YOUR_PASSWORD_HERE goto FAIL`.
-4.  Replace `YOUR_PASSWORD_HERE` with your desired password.
-5.  Save the file.
+## 🛠️ How to Use
 
-### Option 2: Create the Script Manually
-1.  Open **Notepad**.
-2.  Copy the code block below and paste it into Notepad.
-3.  Change `YOUR_PASSWORD_HERE` to your desired password.
-4.  Go to **File > Save As**.
-5.  Name the file `Locker.bat` and select **All Files** in the "Save as type" dropdown.
+### 1. Download & Setup
+1.  **Clone** this repository or **Download** the `Locker.bat` file.
+    ```bash
+    git clone https://github.com/hackerstoreofficial/Folder-Lock-Unlock-in-Windows.git
+    ```
+2.  Place the `Locker.bat` file in the directory where you want your locked folder to exist.
 
-### The Script Code
+### 2. Set Your Password
+1.  Right-click `Locker.bat` and select **Edit** (or Open with Notepad).
+2.  Find the line that says:
+    ```bat
+    if NOT %pass%==YOUR_PASSWORD_HERE goto FAIL
+    ```
+3.  Replace `YOUR_PASSWORD_HERE` with your desired password.
+4.  **Save** the file (`Ctrl + S`).
+
+### 3. Locking & Unlocking
+1.  **Create Locker:** Double-click `Locker.bat`. A new folder named `Locker` will appear.
+2.  **Add Files:** Move your private files into the `Locker` folder.
+3.  **Lock:** Double-click `Locker.bat` again. Type `Y` and press Enter. The folder will vanish.
+4.  **Unlock:** Double-click `Locker.bat`. Enter your password to reveal the folder.
+
+## 📝 The Script
+If you prefer to create the file manually, copy the code below into a new text file and save it as `Locker.bat`.
 
 ```bat
 cls
@@ -71,12 +85,14 @@ goto End
 :End
 ```
 
-## How to Use
+## ❓ Troubleshooting
 
-1. Double-click `Locker.bat` . It will create a folder named `Locker`.
+Forgot Password? Since this is a script, you can right-click the `.bat` file and choose "Edit" to see or change the password.
 
-2. Move your files into the `Locker` folder.
+Folder Not Hiding? Ensure "Show hidden files" is disabled in your Windows Explorer View settings.
 
-3. Double-click `Locker.bat` again. Type `Y` to lock the folder. The folder will disappear.
+## 📜 License
+This project is licensed under the MIT License. Free to use and modify.
 
-4. To unlock, double-click `Locker.bat` and enter your password.
+---
+*Developed with ❤️ by [hackerstoreofficial](https://github.com/hackerstoreofficial)*
