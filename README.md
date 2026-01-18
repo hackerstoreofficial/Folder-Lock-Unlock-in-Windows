@@ -8,6 +8,9 @@ A lightweight, portable Batch script to lock (hide) and unlock folders on Window
 
 > **⚠️ Important Disclaimer:** This tool uses a system trick (renaming to a CLSID) to hide the folder. It provides **basic privacy** against casual snooping but **does not encrypt** your files. A tech-savvy user can still access the files if they know where to look. Do not use this for highly sensitive data like banking details.
 
+> [!WARNING]
+> **Educational Use Only**
+
 ## ✨ Key Features
 * **No Installation Required:** Works directly on any Windows PC.
 * **Password Protection:** Simple text-based password system.
@@ -84,6 +87,14 @@ goto End
 
 :End
 ```
+
+## 🧠 How It Works (The Technical Part)
+This script uses a built-in Windows feature called **CLSID (Class Identifier)**.
+
+1.  **Renaming:** When you lock the folder, the script renames `Locker` to `Control Panel.{21EC2020-3AEA-1069-A2DD-08002B30309D}`.
+2.  **System Trick:** The UUID `{21EC2020-3AEA-1069-A2DD-08002B30309D}` corresponds to the Windows **Control Panel**.
+3.  **Result:** Windows Explorer sees this UUID and treats the folder as a shortcut to the Control Panel, effectively hiding the original contents and changing the icon.
+4.  **Attributes:** The `attrib +h +s` command sets the folder as **Hidden** and **System**, making it invisible to standard users.
 
 ## ❓ Troubleshooting
 
